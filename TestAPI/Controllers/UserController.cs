@@ -21,7 +21,9 @@ namespace TestAPI.Controllers
         [HttpGet()]
         public IActionResult GetAll()
         {
+            List<User> users = _service.Handle().ToList();
             return Ok(_service.Handle());
         }
+
     }
 }

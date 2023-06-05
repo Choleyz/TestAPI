@@ -1,3 +1,5 @@
+using Domaine.Repositories;
+using Domaine.Services;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -12,7 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IDbConnection>(sp => new SqlConnection(configuration.GetConnectionString("default")));
-
+builder.Services.AddScoped<IUserRepository, UserService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

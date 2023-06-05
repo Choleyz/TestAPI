@@ -26,18 +26,15 @@ namespace Domaine.Services
             using (SqlConnection connection = new SqlConnection(_service.ConnectionString))
             {
                 SqlCommand cmd = connection.CreateCommand();
-
-                cmd.CommandText = "SELECT (*) FROM [User]";
-
-                IEnumerable<User>? users = null;
-
+                cmd.CommandText = "SELECT * FROM [User]";
+                List<User> users = new List<User>();
                 connection.Open();
-                
-                using(DbDataReader reader = cmd.ExecuteReader())
+                Console.WriteLine(connection.State);
+                using (DbDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        users.Append(new User
+                        users.Add(new User
                         {
                             Firstname = (string)reader[0],
                             Lastname = (string)reader[1],
@@ -45,18 +42,13 @@ namespace Domaine.Services
                             Email = (string)reader[3],
                             Password = (string)reader[4],
                             PhoneNumber = (string)reader[5],
-                            //int Role;
                         });
-
-                        
                     }
-
                 }
                 connection.Close();
-
                 return users;
             }
         }
-    
+
     }
 }
